@@ -3,9 +3,9 @@
 ;; Copyright (C) 2026 Maksim Kochetkov
 
 ;; Author: Maksim Kochetkov <maksim.kochetkov@finagra.com>
-;; Assisted-by: Claude Code:claude-opus-5
+;; Assisted-by: Claude Code:claude-fable-5-1
 ;; Maintainer: Maksim Kochetkov <maksim.kochetkov@finagra.com>
-;; Version: 0.1.1
+;; Version: 0.1.2
 ;; URL: https://github.com/kochetkov-ma/brewpage-emacs
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: tools, convenience
