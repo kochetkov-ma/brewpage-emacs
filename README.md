@@ -38,6 +38,10 @@ Clone this repository and add to your `load-path`:
 
 After publishing, the generated URL is automatically copied to your kill-ring and displayed in the minibuffer.
 
+Both commands are autoloaded, so no explicit `(require 'brewpage)` is needed when installing through `package.el`.
+
+Buffer content is sent as UTF-8, so non-ASCII text (Cyrillic, CJK, emoji, typographic dashes) round-trips unchanged.
+
 ### Configuration
 
 ```elisp
@@ -59,7 +63,7 @@ After publishing, the generated URL is automatically copied to your kill-ring an
 
 ## License
 
-MIT — See LICENSE file
+MIT — see the [LICENSE](LICENSE) file.
 
 ## About brewpage.app
 
