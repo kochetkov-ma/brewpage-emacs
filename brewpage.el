@@ -23,6 +23,7 @@
 
 ;;; Code:
 
+(require 'json)
 (require 'url)
 
 (defgroup brewpage nil
@@ -50,12 +51,15 @@
 The generated URL is copied to the kill-ring and displayed in the minibuffer."
   (interactive "r")
   (let* ((content (buffer-substring-no-properties start end))
-         (json-payload (format "{\"content\": %s, \"ns\": \"%s\"}"
-                               (json-encode-string content)
-                               brewpage-namespace))
+         ;; `url-request-data' must be unibyte: url.el refuses to send a
+         ;; multibyte request body.
+         (json-payload (encode-coding-string
+                        (json-encode `(("content" . ,content)
+                                       ("ns" . ,brewpage-namespace)))
+                        'utf-8))
          (url-request-method "POST")
          (url-request-extra-headers
-          '(("Content-Type" . "application/json")))
+          '(("Content-Type" . "application/json; charset=utf-8")))
          (url-request-data json-payload)
          response-data)
     (message "Publishing to brewpage.app...")
