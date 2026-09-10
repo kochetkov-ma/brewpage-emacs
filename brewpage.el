@@ -62,24 +62,29 @@ The generated URL is copied to the kill-ring and displayed in the minibuffer."
          (url-request-extra-headers
           '(("Content-Type" . "application/json; charset=utf-8")))
          (url-request-data json-payload)
+         (buffer (progn (message "Publishing to brewpage.app...")
+                        (url-retrieve-synchronously brewpage-api-endpoint t t)))
          response-data)
-    (message "Publishing to brewpage.app...")
-    (with-current-buffer
-        (url-retrieve-synchronously brewpage-api-endpoint t t)
-      (goto-char (point-min))
-      (search-forward "\n\n" nil t)
-      (let ((json-response (json-read)))
-        (setq response-data
-              (if (consp json-response) json-response
-                (and (stringp json-response) (json-read-from-string json-response))))))
-    (when response-data
-      (let ((url (cdr (assq 'url response-data))))
-        (if url
-            (progn
-              (when brewpage-copy-to-clipboard
-                (kill-new url))
-              (message "Published to: %s" url))
-          (message "Failed to parse response: %s" response-data))))))
+    (unless buffer
+      (error "No response from %s" brewpage-api-endpoint))
+    (unwind-protect
+        (with-current-buffer buffer
+          (goto-char (point-min))
+          (search-forward "\n\n" nil t)
+          ;; The response body is raw bytes; decode before parsing.
+          (setq response-data
+                (json-read-from-string
+                 (decode-coding-string
+                  (buffer-substring-no-properties (point) (point-max))
+                  'utf-8))))
+      (kill-buffer buffer))
+    (let ((link (cdr (assq 'link response-data))))
+      (if link
+          (progn
+            (when brewpage-copy-to-clipboard
+              (kill-new link))
+            (message "Published to: %s" link))
+        (message "Failed to parse response: %s" response-data)))))
 
 ;;;###autoload
 (defun brewpage-publish-buffer ()
