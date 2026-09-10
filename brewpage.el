@@ -46,6 +46,7 @@
   :type 'boolean
   :group 'brewpage)
 
+;;;###autoload
 (defun brewpage-publish-region (start end)
   "Publish the region between START and END to brewpage.app.
 The generated URL is copied to the kill-ring and displayed in the minibuffer."
@@ -80,6 +81,7 @@ The generated URL is copied to the kill-ring and displayed in the minibuffer."
               (message "Published to: %s" url))
           (message "Failed to parse response: %s" response-data))))))
 
+;;;###autoload
 (defun brewpage-publish-buffer ()
   "Publish the entire buffer to brewpage.app."
   (interactive)
