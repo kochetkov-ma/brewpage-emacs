@@ -1,16 +1,38 @@
 ;;; brewpage.el --- Publish buffers/regions to brewpage.app -*- lexical-binding: t; -*-
 
-;; Author: Maxim Kochetkov
-;; Version: 0.1.0
+;; Copyright (C) 2026 Maksim Kochetkov
+
+;; Author: Maksim Kochetkov <maksim.kochetkov@finagra.com>
+;; Assisted-by: Claude Code:claude-opus-5
+;; Maintainer: Maksim Kochetkov <maksim.kochetkov@finagra.com>
+;; Version: 0.1.1
 ;; URL: https://github.com/kochetkov-ma/brewpage-emacs
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: tools, convenience
-;; License: MIT
+;; SPDX-License-Identifier: MIT
+
+;; Permission is hereby granted, free of charge, to any person obtaining a copy
+;; of this software and associated documentation files (the "Software"), to deal
+;; in the Software without restriction, including without limitation the rights
+;; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+;; copies of the Software, and to permit persons to whom the Software is
+;; furnished to do so, subject to the following conditions:
+;;
+;; The above copyright notice and this permission notice shall be included in
+;; all copies or substantial portions of the Software.
+;;
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+;; THE SOFTWARE.
 
 ;;; Commentary:
 
 ;; Publish Emacs buffers or regions to brewpage.app, a simple pastebin service.
-;; After publishing, the generated URL is copied to the kill-ring and displayed
+;; After publishing, the generated URL is copied to the kill ring and displayed
 ;; in the minibuffer for easy sharing.
 ;;
 ;; Usage:
@@ -42,14 +64,15 @@
   :group 'brewpage)
 
 (defcustom brewpage-copy-to-clipboard t
-  "If non-nil, copy the published URL to the kill-ring."
+  "If non-nil, copy the published URL to the `kill-ring'."
   :type 'boolean
   :group 'brewpage)
 
 ;;;###autoload
 (defun brewpage-publish-region (start end)
   "Publish the region between START and END to brewpage.app.
-The generated URL is copied to the kill-ring and displayed in the minibuffer."
+The generated URL is copied to the `kill-ring' and displayed in
+the minibuffer."
   (interactive "r")
   (let* ((content (buffer-substring-no-properties start end))
          ;; `url-request-data' must be unibyte: url.el refuses to send a
