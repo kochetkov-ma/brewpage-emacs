@@ -6,7 +6,7 @@ Publish Emacs buffers and regions to [brewpage.app](https://brewpage.app) direct
 
 ### Via MELPA
 
-Once this package is accepted into MELPA, install via:
+`brewpage` is available on [MELPA](https://melpa.org/#/brewpage) and [MELPA Stable](https://stable.melpa.org/#/brewpage). With either archive in `package-archives`, run `M-x package-install RET brewpage RET`, or:
 
 ```elisp
 (use-package brewpage
@@ -67,4 +67,4 @@ MIT — see the [LICENSE](LICENSE) file.
 
 ## About brewpage.app
 
-[brewpage.app](https://brewpage.app) is a simple, privacy-respecting pastebin service. Share code, notes, and text with short URLs and optional expiration.
+[brewpage.app](https://brewpage.app) hosts HTML pages, Markdown, text and files and returns a shareable link. Free, no account, no API key.
